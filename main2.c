@@ -28,8 +28,27 @@ float calcular_media_aluno(float notas[], int quantidade_notas) {
   return total / quantidade_notas;
 }
 
-float calcular_media_turma(float total_turma, int quantidade_alunos) {
-  return total_turma / quantidade_alunos;
+void calcular_media_alunos(int quantidade_alunos, int quantidade_notas, float notas[][quantidade_notas], char nomes[][100]) {
+  for (int i = 0; i < quantidade_alunos; i++) {
+    float media = calcular_media_aluno(notas[i], quantidade_notas);
+    printf("A media do aluno %s e %.2f\n", nomes[i], media);
+  }
+
+  return;
+}
+
+void calcular_media_turma(int quantidade_alunos, int quantidade_notas, float notas[][quantidade_notas]) {
+  float total_turma;
+  
+  for (int i = 0; i < quantidade_alunos; i++) {
+    float media = calcular_media_aluno(notas[i], quantidade_notas);
+    total_turma = media;
+  }
+
+  float media_turma = total_turma / quantidade_alunos; 
+
+  printf("A media da turma e %.2f\n", media_turma);
+  return;
 }
 
 int main() {
@@ -55,18 +74,11 @@ int main() {
       printf("=============================\n");
     }
 
-    float total_turma = 0.0;
-    
-    for (int i = 0; i < quantidade_alunos; i++) {
-      float media = calcular_media_aluno(notas[i], quantidade_notas);
-      total_turma += media;
-      printf("A media do aluno %s e %.2f\n", nomes[i], media);
-    }
-
-    float media_turma = calcular_media_turma(total_turma, quantidade_alunos);
-    printf("A media da turma e %.2f\n", media_turma);
+    calcular_media_alunos(quantidade_alunos, quantidade_notas, notas, nomes);
+    calcular_media_turma(quantidade_alunos, quantidade_notas, notas);
      
     printf("=========================\n");
+    
     printf("Deseja usar o programa novamente? [S/N]: ");
     scanf(" %c", &opt);
   } while(opt == 'S' || opt == 's');
